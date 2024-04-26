@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
-  
-  
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
   <title>رابط الوثائق</title>
   <style>
     body {
+      direction: rtl;
       font-family: "Alexandria";
       margin: 0;
       display: flex;
@@ -61,10 +59,45 @@
   <div class="container">
     <h1>رابط الوثائق</h1>
     <img src="https://c.tenor.com/IundV5I_Q9wAAAAC/tenor.gif" alt="صورة" style="height: 150px;border-radius: 20px;">
-    <p>للاسف غلطت في كتابة الرابط اللي في الفيديو لي فيه رابط الوثائق.. ولكن ما تخافش كليكي على الزر في الاسفل وغادي يوجهك للرابط الصحيح</p>
+    <p>للأسف غلطت في كتابة الرابط اللي في الفيديو الذي يحتوي على رابط الوثائق.. ولكن لا تقلقي، انقري على الزر في الأسفل وسوف يوجهك للرابط الصحيح</p>
     <a href="https://bit.ly/watikaty" target="_blank" class="button">رابط الوثائق</a>
     <br>
     <p>شي دعيوة الله يحفظك</p>
+  
+    <h1 id="msg"></h1>
+ 
+    <form>
+        <input style="font-family: Alexandria;height: 50px;border-radius: 15px;text-align: center;" type="text" name="name" placeholder='أدخل تعليقك هنا...' id="commentField">
+     
+<br><br>
+         
+        
+        <input style="font-family: Alexandria ;background-color: #a5f9a9;color: black;" type="submit" id="sub" class="button" value="إرسال">
+
+    </form>
+    
   </div>
+
+ <script>
+    let form = document.querySelector("form");
+      
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+         
+        document.querySelector("#sub").value = "تعليقك غادي فالطريق ..";
+          
+        let data = new FormData(form); 
+        fetch('https://script.google.com/macros/s/AKfycbwgflbcc5gVFjyg00bsJFWCMMZ1DsoOZkcIqB9Z-wdJmfhzA_UZNRPwIl5BUMqZoqTu/exec', {
+            method: "POST",
+            body: data
+        })
+        .then(res => res.text())
+        .then(data => {
+            document.querySelector("#msg").innerHTML = "وصلنا تعليقك";
+            document.querySelector("#sub").value = "إرسال";
+        });
+    })
+ </script>
 </body>
 </html>
+    
