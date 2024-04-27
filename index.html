@@ -9,8 +9,6 @@
   <title>رابط الوثائق</title>
   <style>
     body {
-
-
       direction: rtl;
       font-family: "Alexandria";
       margin: 0;
@@ -18,7 +16,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      
       background-color: #f0f0f0;
       line-height: 1.8;
     }
@@ -28,8 +25,6 @@
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center; /* Added to center align text */
-
-
     }
 
     h1 {
@@ -64,25 +59,26 @@
     <img src="https://c.tenor.com/IundV5I_Q9wAAAAC/tenor.gif" alt="صورة" style="height: 130px;border-radius: 17px;">
     <p>للأسف غلطت في كتابة الرابط اللي في الفيديو الذي يحتوي على رابط الوثائق.. ولكن لا تقلق، انقر على الزر في الأسفل وسوف يوجهك للرابط الصحيح</p>
     <a href="https://bit.ly/watikaty" target="_blank" class="button">رابط الوثائق</a>
-   <p style="color: white;font-size:10px;">تحياتي سي أمين... كنعاونو الشباب لي تلف هههههه الأمور طيبة يعني</p>
+    <p style="color: white;font-size:10px;">تحياتي سي أمين... كنعاونو الشباب لي تلف هههههه الأمور طيبة يعني</p>
     <p>شي دعيوة الله يحفظك</p>
   
     <h1 id="msg"></h1>
  
     <form>
-        <input style="font-family: Alexandria;height: 50px;border-radius: 15px;text-align: center;" type="text" name="name" placeholder='أدخل تعليقك هنا...' id="commentField">
-     
-<br><br>
-         
-        
-        <input style="font-family: Alexandria ;background-color: #a5f9a9;color: black;" type="submit" id="sub" class="button" value="إرسال">
-
+      <input style="font-family: Alexandria;height: 50px;border-radius: 15px;text-align: center;" type="text" name="name" placeholder='أدخل تعليقك هنا...' id="commentField">
+      <br><br>
+      <input style="font-family: Alexandria ;background-color: #a5f9a9;color: black;" type="submit" id="sub" class="button" value="إرسال">
     </form>
-    
+
+    <!-- Dropdown for comments and prayers -->
+    <select id="commentsDropdown" style="font-family: Alexandria; margin-top: 20px;">
+      <option selected disabled>تعليقاتكم ودعواتكم</option>
+    </select>
   </div>
 
  <script>
     let form = document.querySelector("form");
+    let commentsDropdown = document.getElementById('commentsDropdown');
       
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -99,8 +95,16 @@
             document.querySelector("#msg").innerHTML = "وصلنا تعليقك";
             document.querySelector("#sub").value = "إرسال";
         });
-    })
+    });
+
+    // Fetch comments and prayers from Google Sheets API
+    fetch('https://sheets.googleapis.com/v4/spreadsheets/1DvUWjodi9Sykr2gE55gd4Z_czNHdnmHRn0c-1VJ0_0Y/values/Sheet1!A1:I100?key=AIzaSyB5WTjIR5OZt108xl9uQApzeoNRWuMyYRE')
+      .then(response => response.json())
+      .then(data => {
+        data.values.slice(1).forEach(row => {
+          commentsDropdown.innerHTML += `<option>${row[0]}</option>`; // Assuming the comments are in the first column
+        });
+      });
  </script>
 </body>
 </html>
-    
